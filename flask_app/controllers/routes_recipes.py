@@ -31,7 +31,8 @@ def save_recipe():
     # Ensures page cannot be accessed w/o session (created on login)
     if "user_id" not in session:
         return redirect('/')
-    if not Recipe.validate_recipe(**request.form):
+    print(request.form)
+    if not Recipe.validate_recipe(request.form):
         return redirect('/recipe/create')
     Recipe.save(request.form)
     flash(f"{request.form['name']} added to recipes list! Thanks for your contribution to ending world hunger.", "recipe_added")

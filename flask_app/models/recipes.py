@@ -38,7 +38,7 @@ class Recipe:
         
 
     @staticmethod
-    def validate_recipe(**recipe):
+    def validate_recipe(recipe):
         print(recipe)
         is_valid = True
 
@@ -58,14 +58,10 @@ class Recipe:
             flash("Please put when you made this dish.", 'made_on')
             is_valid = False
 
-        # "KeyError 'time'" with no try/except catching
-        try:
-            if(recipe['time'] != [0,1]):
-                flash("Please enter a time to cook.", 'time')
-                is_valid = False
-        except:
+        if "time" not in recipe or recipe["time"] not in ["0","1"]:
             flash("Please enter a time to cook.", 'time')
             is_valid = False
+        
 
         return is_valid
 
