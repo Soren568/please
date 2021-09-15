@@ -34,8 +34,11 @@ def save_recipe():
     print(request.form)
     if not Recipe.validate_recipe(request.form):
         return redirect('/recipe/create')
-    Recipe.save(request.form)
-    flash(f"{request.form['name']} added to recipes list! Thanks for your contribution to ending world hunger.", "recipe_added")
+    recipe_id = Recipe.save(request.form)
+    if recipe_id:
+        flash(f"{request.form['name']} added to recipes list! Thanks for your contribution to ending world hunger.", "recipe_added")
+    else:
+        flash(f"Something went wrong: {recipe_id}", "recipe_added")
     return redirect('/dashboard')
 # ===========================================================================================
 
